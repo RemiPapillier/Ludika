@@ -1,4 +1,4 @@
-package com.example.Ludika
+package com.vizhawks.Ludika
 
 import io.flutter.embedding.android.FlutterActivity
 

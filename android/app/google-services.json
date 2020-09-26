@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "298377734002",
+    "firebase_url": "https://ludika-f82ee.firebaseio.com",
+    "project_id": "ludika-f82ee",
+    "storage_bucket": "ludika-f82ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298377734002:android:9dd1817d51331a5ef51feb",
+        "android_client_info": {
+          "package_name": "com.vizhawks.Ludika"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "298377734002-jioimi7ef9guvcktks8rn4iubi5kd424.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTMkjBKNAufWWQGG9oyBi-Y1_-AX-Xt0k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "298377734002-jioimi7ef9guvcktks8rn4iubi5kd424.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
