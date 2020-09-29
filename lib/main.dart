@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:Ludika/models/myUser.dart';
 import 'package:Ludika/services/authentication.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:Ludika/screens/home/home.dart';
