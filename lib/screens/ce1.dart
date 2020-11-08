@@ -36,30 +36,43 @@ class _Ce1State extends State<Ce1> {
               Positioned(
                   top: _divwidth * 0.25,
                   left: _divwidth * 0.1,
-                  child: Region(matiere: 1)),
+                  child: Region(grade: 2, matiere: "conjugaison")),
               Positioned(
                   top: _divwidth * 0.25 + _divwidth * 0.225,
                   left: _divwidth * 0.48,
-                  child: Region(matiere: 2)),
+                  child: Region(grade: 2, matiere: "ecriture")),
               Positioned(
                   top: _divwidth * 0.25 + _divwidth * 0.45,
                   left: _divwidth * 0.1,
-                  child: Region(matiere: 3)),
+                  child: Region(grade: 2, matiere: "syllabe")),
               Positioned(
                   top: _divwidth * 0.25 + _divwidth * 0.225 + _divwidth * 0.45,
                   left: _divwidth * 0.48,
-                  child: Region(matiere: 4)),
+                  child: Region(grade: 2, matiere: "nombre")),
               Positioned(
                   top: _divwidth * 0.25 + _divwidth * 0.45 + _divwidth * 0.45,
                   left: _divwidth * 0.1,
-                  child: Region(matiere: 5)),
+                  child: Region(grade: 2, matiere: "calcul")),
               Positioned(
                   top: _divwidth * 0.25 +
                       _divwidth * 0.225 +
                       _divwidth * 0.45 +
                       _divwidth * 0.45,
                   left: _divwidth * 0.48,
-                  child: Region(matiere: 6)),
+                  child: Region(grade: 2, matiere: "heure")),
+              Positioned(
+                  top: _divwidth * 0.25 +
+                      _divwidth * 0.225 +
+                      _divwidth * 0.45 +
+                      _divwidth * 0.45 +
+                      _divwidth * 0.35,
+                  left: _divwidth * 0.30,
+                  child: GestureDetector(
+                    child: Icon(Icons.arrow_back),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ))
             ])));
   }
 }

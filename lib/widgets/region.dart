@@ -1,16 +1,18 @@
+import 'package:Ludika/screens/exercice.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Region extends StatefulWidget {
-  Region({this.matiere});
-  final int matiere; //maths=1 conugaison=2...
+  Region({this.grade, this.matiere});
+  final int grade;
+  final String matiere;
   @override
   _RegionState createState() => _RegionState();
 }
 
 class _RegionState extends State<Region> {
   Text displayMatiere() {
-    if (widget.matiere == 1) {
+    if (widget.matiere == "conjugaison") {
       return Text(
         'Conjugaison',
         style: GoogleFonts.bellota(
@@ -18,7 +20,7 @@ class _RegionState extends State<Region> {
             fontSize: 22,
             textStyle: TextStyle(color: Colors.white)),
       );
-    } else if (widget.matiere == 2) {
+    } else if (widget.matiere == "ecriture") {
       return Text(
         'Ecriture',
         style: GoogleFonts.bellota(
@@ -26,7 +28,7 @@ class _RegionState extends State<Region> {
             fontSize: 22,
             textStyle: TextStyle(color: Colors.white)),
       );
-    } else if (widget.matiere == 3) {
+    } else if (widget.matiere == "syllabe") {
       return Text(
         'Syllabes',
         style: GoogleFonts.bellota(
@@ -34,7 +36,7 @@ class _RegionState extends State<Region> {
             fontSize: 22,
             textStyle: TextStyle(color: Colors.white)),
       );
-    } else if (widget.matiere == 4) {
+    } else if (widget.matiere == "nombre") {
       return Text(
         'Nombres',
         style: GoogleFonts.bellota(
@@ -42,7 +44,7 @@ class _RegionState extends State<Region> {
             fontSize: 22,
             textStyle: TextStyle(color: Colors.white)),
       );
-    } else if (widget.matiere == 5) {
+    } else if (widget.matiere == "calcul") {
       return Text(
         'Calcul',
         style: GoogleFonts.bellota(
@@ -62,15 +64,15 @@ class _RegionState extends State<Region> {
   }
 
   AssetImage displayHexBackground() {
-    if (widget.matiere == 1) {
+    if (widget.matiere == "conjugaison") {
       return AssetImage('assets/images/hexForet.png');
-    } else if (widget.matiere == 2) {
+    } else if (widget.matiere == "ecriture") {
       return AssetImage('assets/images/hexDesert.png');
-    } else if (widget.matiere == 3) {
+    } else if (widget.matiere == "syllabe") {
       return AssetImage('assets/images/hexMontagne.png');
-    } else if (widget.matiere == 4) {
+    } else if (widget.matiere == "nombre") {
       return AssetImage('assets/images/hexPrairie.png');
-    } else if (widget.matiere == 5) {
+    } else if (widget.matiere == "calcul") {
       return AssetImage('assets/images/hexPyramide.png');
     } else {
       return AssetImage('assets/images/hexVolcan.png');
@@ -93,7 +95,13 @@ class _RegionState extends State<Region> {
         clipper: HexagonClipper(),
       ),
       onTap: () {
-        Navigator.pushNamed(context, '/home');
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Exercice(
+                      grade: widget.grade,
+                      matiere: widget.matiere,
+                    )));
       },
     );
   }
