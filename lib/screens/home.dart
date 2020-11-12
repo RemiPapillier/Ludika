@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:Ludika/services/authentication.dart';
 import 'package:Ludika/models/myUser.dart';
 import 'package:Ludika/widgets/planet.dart';
+import 'dart:math' as math;
 
 class Home extends StatefulWidget {
   @override
@@ -28,17 +29,86 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    var _divheight = MediaQuery.of(context).size.height;
+    var _divwidth = MediaQuery.of(context).size.width;
+
+    Icon star() {
+      return Icon(
+        Icons.star,
+        color: Colors.white,
+        size: 8,
+      );
+    }
+
+    Stack generateStars() {
+      var rng = math.Random();
+      List<List<int>> coord = [];
+      for (var i = 0; i < 50; i++) {
+        var w = rng.nextInt(_divwidth.round());
+        var h = rng.nextInt(_divheight.round());
+        coord.add([w, h]);
+      }
+      return Stack(
+          children: List<Widget>.generate(coord.length, (int index) {
+        return Positioned(
+            child: star(),
+            left: coord[index][0].toDouble(),
+            top: coord[index][1].toDouble());
+      }));
+    }
+
     return Scaffold(
         //child: Text('Succeed ' + currentUser.uid),
-        backgroundColor: Colors.indigo[900],
-        body: Stack(
-          children: <Widget>[
-            Positioned(top: 110, left: 20, child: Planet(grade: 5)),
-            Positioned(top: 250, left: 120, child: Planet(grade: 4)),
-            Positioned(top: 150, left: 220, child: Planet(grade: 3)),
-            Positioned(top: 350, left: 10, child: Planet(grade: 2)),
-            Positioned(top: 400, left: 220, child: Planet(grade: 1)),
-          ],
-        ));
+        body: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topRight,
+                    colors: [
+                  Color(0xFF28196D).withOpacity(0.9),
+                  Color(0xFF04042C)
+                ])),
+            child: Stack(
+              children: <Widget>[
+                //Positioned(top: 100, left: 50, child: star()),
+                generateStars(),
+                Positioned(
+                    top: _divheight * 0.12,
+                    left: _divwidth * 0.6,
+                    child: Planet(grade: 5)),
+                Positioned(
+                    top: _divheight * 0.16,
+                    left: _divwidth * 0.12,
+                    child: Planet(grade: 4)),
+                Positioned(
+                    top: _divheight * 0.3,
+                    left: _divwidth * 0.4,
+                    child: Planet(grade: 3)),
+                Positioned(
+                    top: _divheight * 0.45,
+                    left: _divwidth * 0.08,
+                    child: Planet(grade: 2)),
+                Positioned(
+                    top: _divheight * 0.55,
+                    left: _divwidth * 0.65,
+                    child: Planet(grade: 1)),
+                Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Padding(
+                        padding: EdgeInsets.all(30),
+                        child: Transform.rotate(
+                          angle: math.pi / 32,
+                          child: Container(
+                            width: _divwidth * 0.5,
+                            height: _divwidth * 0.5,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        'assets/images/ludoSoucoupe.png'),
+                                    fit: BoxFit.fitWidth)),
+                          ),
+                        )))
+              ],
+            )));
   }
 }

@@ -9,46 +9,49 @@ class Planet extends StatefulWidget {
 }
 
 class _PlanetState extends State<Planet> {
+  TextStyle myStyle() {
+    return TextStyle(
+      color: Colors.white,
+      shadows: [
+        Shadow(
+          blurRadius: 5.0,
+          color: Colors.black,
+          offset: Offset(2.0, 2.0),
+        ),
+      ],
+    );
+  }
+
   Text displayGrade() {
     if (widget.grade == 1) {
       return Text(
         'CP',
         style: GoogleFonts.bellota(
-            fontWeight: FontWeight.w900,
-            fontSize: 26,
-            textStyle: TextStyle(color: Colors.white)),
+            fontWeight: FontWeight.w900, fontSize: 26, textStyle: myStyle()),
       );
     } else if (widget.grade == 2) {
       return Text(
         'CE1',
         style: GoogleFonts.bellota(
-            fontWeight: FontWeight.w900,
-            fontSize: 26,
-            textStyle: TextStyle(color: Colors.white)),
+            fontWeight: FontWeight.w900, fontSize: 26, textStyle: myStyle()),
       );
     } else if (widget.grade == 3) {
       return Text(
         'CE2',
         style: GoogleFonts.bellota(
-            fontWeight: FontWeight.w900,
-            fontSize: 26,
-            textStyle: TextStyle(color: Colors.white)),
+            fontWeight: FontWeight.w900, fontSize: 26, textStyle: myStyle()),
       );
     } else if (widget.grade == 4) {
       return Text(
         'CM1',
         style: GoogleFonts.bellota(
-            fontWeight: FontWeight.w900,
-            fontSize: 26,
-            textStyle: TextStyle(color: Colors.white)),
+            fontWeight: FontWeight.w900, fontSize: 26, textStyle: myStyle()),
       );
     } else {
       return Text(
         'CM2',
         style: GoogleFonts.bellota(
-            fontWeight: FontWeight.w900,
-            fontSize: 26,
-            textStyle: TextStyle(color: Colors.white)),
+            fontWeight: FontWeight.w900, fontSize: 26, textStyle: myStyle()),
       );
     }
   }
@@ -72,9 +75,9 @@ class _PlanetState extends State<Planet> {
     if (widget.grade == 1) {
       return _divwidth * 0.3;
     } else if (widget.grade == 2) {
-      return _divwidth * 0.5;
-    } else if (widget.grade == 3) {
       return _divwidth * 0.3;
+    } else if (widget.grade == 3) {
+      return _divwidth * 0.45;
     } else if (widget.grade == 4) {
       return _divwidth * 0.3;
     } else {

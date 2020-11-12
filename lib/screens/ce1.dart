@@ -1,4 +1,5 @@
 import 'package:Ludika/widgets/region.dart';
+import 'package:Ludika/widgets/retour.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -8,19 +9,32 @@ class Ce1 extends StatefulWidget {
 }
 
 class _Ce1State extends State<Ce1> {
+  TextStyle myStyle() {
+    return TextStyle(
+      color: Colors.white,
+      shadows: [
+        Shadow(
+          blurRadius: 5.0,
+          color: Colors.black,
+          offset: Offset(2.0, 2.0),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var _divwidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
         body: Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topRight,
                     colors: [
-                  Color(0xFF009B9A),
-                  Color(0xFF52F207),
-                  Color(0xFF009B9A)
+                  Color(0xFF52B755),
+                  Color(0xFFF2FF1D),
                 ])),
             child: Stack(children: <Widget>[
               Positioned(
@@ -31,7 +45,7 @@ class _Ce1State extends State<Ce1> {
                     style: GoogleFonts.bellota(
                         fontWeight: FontWeight.w900,
                         fontSize: 40,
-                        textStyle: TextStyle(color: Colors.white)),
+                        textStyle: myStyle()),
                   )),
               Positioned(
                   top: _divwidth * 0.25,
@@ -65,14 +79,9 @@ class _Ce1State extends State<Ce1> {
                       _divwidth * 0.225 +
                       _divwidth * 0.45 +
                       _divwidth * 0.45 +
-                      _divwidth * 0.35,
-                  left: _divwidth * 0.30,
-                  child: GestureDetector(
-                    child: Icon(Icons.arrow_back),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ))
+                      _divwidth * 0.3,
+                  left: _divwidth * 0.1,
+                  child: Retour())
             ])));
   }
 }
