@@ -1,35 +1,24 @@
 import 'dart:async';
 
-import 'package:Ludika/services/conjugaison.dart';
+import 'package:Ludika/data/conjugaison.dart';
 import 'package:Ludika/widgets/menu.dart';
 import 'package:Ludika/widgets/retour.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AnimalQuiz {
-  var images = ["danse", "habit", "photo", "lisLivre"];
-
-  var questions = [
-    "This animal is a carnivorous reptile.",
-    "_________ like to chase mice and birds.",
-    "Give a _________ a bone and he will find his way home",
-    "A nocturnal animal with some really big eyes",
-  ];
-
-  var choices = [
-    ["Cat", "Sheep", "Alligator"],
-    ["Cat", "Snail", "Slug"],
-    ["Mouse", "Dog", "Elephant"],
-    ["Spider", "Snake", "Hawk"]
-  ];
-
-  var correctAnswers = ["Alligator", "Cat", "Dog", "Hawk"];
+class Quiz {
+  var questions = [];
+  var images = [];
+  var exercices = [];
+  var choices = [];
+  var correctAnswers = [];
 }
 
 class Exercice extends StatefulWidget {
-  Exercice({this.grade, this.matiere});
+  Exercice({this.grade, this.matiere, this.quiz});
   final int grade;
   final String matiere;
+  final Quiz quiz;
   @override
   _ExerciceState createState() => _ExerciceState();
 }
@@ -37,23 +26,36 @@ class Exercice extends StatefulWidget {
 class _ExerciceState extends State<Exercice> {
   var finalScore = 0;
   var questionNumber = 0;
-  var quiz = new AnimalQuiz();
+  bool show = false;
+  String suivant = "Question suivante";
 
   Color colorToShow = Colors.indigoAccent;
-  Color correct = Colors.green;
-  Color wrong = Colors.red;
+  Color correct = Colors.green[600];
+  Color wrong = Colors.red[600];
   bool disableAnswer = false;
 
   Map<String, Color> btncolor = {
-    "0": Colors.indigoAccent,
-    "1": Colors.indigoAccent,
-    "2": Colors.indigoAccent,
+    "0": Color(0xFF282897),
+    "1": Color(0xFF282897),
+    "2": Color(0xFF282897),
   };
+
+  void modify() {
+    setState(() {
+      show = !show;
+    });
+  }
+
+  void suivantToResultat() {
+    setState(() {
+      suivant = "Résultats";
+    });
+  }
 
   AssetImage displayBackground() {
     if (widget.matiere == "conjugaison") {
       return AssetImage('assets/images/backPalmier.jpg');
-    } else if (widget.matiere == "ecriture") {
+    } else if (widget.matiere == "grammaire") {
       return AssetImage('assets/images/backDesert.jpg');
     } else if (widget.matiere == "syllabe") {
       return AssetImage('assets/images/backMontagne.jpg');
@@ -66,16 +68,9 @@ class _ExerciceState extends State<Exercice> {
     }
   }
 
-  /*void resetQuiz() {
-    setState(() {
-      //Navigator.pop(context);
-      finalScore = 0;
-      questionNumber = 0;
-    });
-  }*/
   void checkAnswer(int nb) {
-    if (quiz.choices[questionNumber][nb] ==
-        quiz.correctAnswers[questionNumber]) {
+    if (widget.quiz.choices[questionNumber][nb] ==
+        widget.quiz.correctAnswers[questionNumber]) {
       debugPrint("Correct");
       finalScore++;
       colorToShow = correct;
@@ -89,8 +84,8 @@ class _ExerciceState extends State<Exercice> {
     setState(() {
       btncolor[nb.toString()] = colorToShow;
       disableAnswer = true;
-      Timer(Duration(seconds: 3), () {
-        updateQuestion();
+      Timer(Duration(milliseconds: 500), () {
+        modify();
       });
     });
   }
@@ -98,8 +93,8 @@ class _ExerciceState extends State<Exercice> {
   void displayCorrectAnswer() {
     var k;
     for (var i = 0; i < 3; i++) {
-      if (quiz.choices[questionNumber][i] ==
-          quiz.correctAnswers[questionNumber]) {
+      if (widget.quiz.choices[questionNumber][i] ==
+          widget.quiz.correctAnswers[questionNumber]) {
         k = i;
       }
     }
@@ -110,27 +105,38 @@ class _ExerciceState extends State<Exercice> {
 
   Widget answerButton(int nb) {
     return MaterialButton(
+      padding: EdgeInsets.all(3),
       color: btncolor[nb.toString()],
       onPressed: () {
         checkAnswer(nb);
       },
       child: new Text(
-        quiz.choices[questionNumber][nb],
-        style: new TextStyle(fontSize: 16.0, color: Colors.white),
+        widget.quiz.choices[questionNumber][nb],
+        style: GoogleFonts.bellota(
+            fontWeight: FontWeight.w800,
+            fontSize: 17,
+            textStyle: TextStyle(
+              color: Colors.white,
+            )),
       ),
     );
   }
 
   void updateQuestion() {
     setState(() {
-      if (questionNumber == quiz.questions.length - 1) {
+      if (questionNumber == widget.quiz.questions.length - 1) {
         Navigator.pushNamed(context, '/home');
+        debugPrint(finalScore.toString());
+      } else if (questionNumber == widget.quiz.questions.length - 2) {
+        suivantToResultat();
+        questionNumber++;
       } else {
         questionNumber++;
       }
-      btncolor["0"] = Colors.indigoAccent;
-      btncolor["1"] = Colors.indigoAccent;
-      btncolor["2"] = Colors.indigoAccent;
+      btncolor["0"] = Color(0xFF282897);
+      btncolor["1"] = Color(0xFF282897);
+      btncolor["2"] = Color(0xFF282897);
+      modify();
       disableAnswer = false;
     });
   }
@@ -141,17 +147,17 @@ class _ExerciceState extends State<Exercice> {
         'Conjugaison',
         style: GoogleFonts.bellota(
             fontWeight: FontWeight.w900,
-            fontSize: 22,
+            fontSize: 26,
             textStyle: TextStyle(
               color: Colors.black,
             )),
       );
-    } else if (widget.matiere == "ecriture") {
+    } else if (widget.matiere == "grammaire") {
       return Text(
-        'Ecriture',
+        'Grammaire',
         style: GoogleFonts.bellota(
             fontWeight: FontWeight.w900,
-            fontSize: 22,
+            fontSize: 26,
             textStyle: TextStyle(color: Colors.black)),
       );
     } else if (widget.matiere == "syllabe") {
@@ -159,7 +165,7 @@ class _ExerciceState extends State<Exercice> {
         'Syllabes',
         style: GoogleFonts.bellota(
             fontWeight: FontWeight.w900,
-            fontSize: 22,
+            fontSize: 26,
             textStyle: TextStyle(color: Colors.black)),
       );
     } else if (widget.matiere == "nombre") {
@@ -167,7 +173,7 @@ class _ExerciceState extends State<Exercice> {
         'Nombres',
         style: GoogleFonts.bellota(
             fontWeight: FontWeight.w900,
-            fontSize: 22,
+            fontSize: 26,
             textStyle: TextStyle(color: Colors.black)),
       );
     } else if (widget.matiere == "calcul") {
@@ -175,7 +181,7 @@ class _ExerciceState extends State<Exercice> {
         'Calcul',
         style: GoogleFonts.bellota(
             fontWeight: FontWeight.w900,
-            fontSize: 22,
+            fontSize: 26,
             textStyle: TextStyle(color: Colors.black)),
       );
     } else {
@@ -183,7 +189,7 @@ class _ExerciceState extends State<Exercice> {
         'Heure',
         style: GoogleFonts.bellota(
             fontWeight: FontWeight.w900,
-            fontSize: 22,
+            fontSize: 26,
             textStyle: TextStyle(color: Colors.black)),
       );
     }
@@ -217,31 +223,58 @@ class _ExerciceState extends State<Exercice> {
                       Center(
                         child: Container(
                           width: _divwidth * 0.9,
-                          constraints:
-                              BoxConstraints(minHeight: _divheight * 0.68),
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.9),
+                            color: Colors.white,
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(20),
+                            padding: EdgeInsets.all(10),
                             child: Column(
                               children: [
+                                SizedBox(height: 5),
                                 displayMatiere(),
+                                SizedBox(height: 5),
                                 Text(
-                                  quiz.questions[questionNumber],
-                                  style: new TextStyle(
-                                    fontSize: 20.0,
-                                  ),
+                                  widget.quiz.questions[questionNumber],
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.bellota(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 20,
+                                      textStyle:
+                                          TextStyle(color: Colors.black)),
+                                ),
+                                SizedBox(
+                                  height: 10,
                                 ),
                                 Container(
-                                  width: 200,
-                                  height: 200,
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/exo/${quiz.images[questionNumber]}.jpg"),
-                                          fit: BoxFit.cover)),
+                                  constraints: BoxConstraints(
+                                      minHeight: _divheight * 0.3),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                          padding: EdgeInsets.all(10),
+                                          child: Container(
+                                            height: _divheight * 0.3,
+                                            decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                    image: AssetImage(
+                                                        "assets/images/exo/${widget.quiz.images[questionNumber]}.jpg"),
+                                                    fit: BoxFit.fitHeight)),
+                                          )),
+                                      Text(
+                                        widget.quiz.exercices[questionNumber],
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.bellota(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 20,
+                                            textStyle:
+                                                TextStyle(color: Colors.black)),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20,
                                 ),
                                 AbsorbPointer(
                                   absorbing: disableAnswer,
@@ -254,7 +287,36 @@ class _ExerciceState extends State<Exercice> {
                                       answerButton(2)
                                     ],
                                   ),
-                                )
+                                ),
+                                SizedBox(height: 10),
+                                Visibility(
+                                    visible: show,
+                                    child: InkWell(
+                                      onTap: () {
+                                        updateQuestion();
+                                      },
+                                      //color: Color(0xFF282897).withOpacity(0.2),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            suivant,
+                                            style: GoogleFonts.bellota(
+                                                fontWeight: FontWeight.w800,
+                                                fontSize: 18,
+                                                textStyle: TextStyle(
+                                                  color: Colors.black,
+                                                )),
+                                          ),
+                                          Icon(
+                                            Icons.arrow_right,
+                                            color: Colors.black,
+                                            size: 30,
+                                          ),
+                                        ],
+                                      ),
+                                    )),
                               ],
                             ),
                           ),

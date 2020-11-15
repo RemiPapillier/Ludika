@@ -1,5 +1,6 @@
+import 'package:Ludika/data/conjugaison.dart';
+import 'package:Ludika/data/grammaire.dart';
 import 'package:Ludika/screens/exercice.dart';
-import 'package:Ludika/screens/quiz1.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,6 +13,22 @@ class Region extends StatefulWidget {
 }
 
 class _RegionState extends State<Region> {
+  Quiz getQuiz() {
+    if (widget.matiere == "conjugaison") {
+      return getQuizConj(widget.grade);
+    } else if (widget.matiere == "grammaire") {
+      return getQuizGram(widget.grade);
+    } else if (widget.matiere == "syllabe") {
+      return getQuizConj(widget.grade);
+    } else if (widget.matiere == "nombre") {
+      return getQuizConj(widget.grade);
+    } else if (widget.matiere == "calcul") {
+      return getQuizConj(widget.grade);
+    } else {
+      return getQuizConj(widget.grade);
+    }
+  }
+
   TextStyle myStyle() {
     return TextStyle(
       color: Colors.white,
@@ -30,9 +47,9 @@ class _RegionState extends State<Region> {
       return Text('Conjugaison',
           style: GoogleFonts.bellota(
               fontWeight: FontWeight.w900, fontSize: 22, textStyle: myStyle()));
-    } else if (widget.matiere == "ecriture") {
+    } else if (widget.matiere == "grammaire") {
       return Text(
-        'Ecriture',
+        'Grammaire',
         style: GoogleFonts.bellota(
             fontWeight: FontWeight.w900, fontSize: 22, textStyle: myStyle()),
       );
@@ -66,7 +83,7 @@ class _RegionState extends State<Region> {
   AssetImage displayHexBackground() {
     if (widget.matiere == "conjugaison") {
       return AssetImage('assets/images/hexPalmier.png');
-    } else if (widget.matiere == "ecriture") {
+    } else if (widget.matiere == "grammaire") {
       return AssetImage('assets/images/hexDesert.png');
     } else if (widget.matiere == "syllabe") {
       return AssetImage('assets/images/hexMontagne.png');
@@ -111,9 +128,9 @@ class _RegionState extends State<Region> {
             context,
             MaterialPageRoute(
                 builder: (context) => Exercice(
-                      grade: widget.grade,
-                      matiere: widget.matiere,
-                    )));
+                    grade: widget.grade,
+                    matiere: widget.matiere,
+                    quiz: getQuiz())));
         /*Navigator.push(
             context, new MaterialPageRoute(builder: (context) => Quiz1()));*/
       },

@@ -50,7 +50,7 @@ class _CpState extends State<Cp> {
               Positioned(
                   top: _divwidth * 0.25 + _divwidth * 0.225,
                   left: _divwidth * 0.48,
-                  child: Region(grade: 1, matiere: "ecriture")),
+                  child: Region(grade: 1, matiere: "grammaire")),
               Positioned(
                   top: _divwidth * 0.25 + _divwidth * 0.45,
                   left: _divwidth * 0.1,
