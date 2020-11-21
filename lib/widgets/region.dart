@@ -1,5 +1,9 @@
+import 'package:Ludika/data/calcul.dart';
 import 'package:Ludika/data/conjugaison.dart';
 import 'package:Ludika/data/grammaire.dart';
+import 'package:Ludika/data/heure.dart';
+import 'package:Ludika/data/nombre.dart';
+import 'package:Ludika/data/syllabe.dart';
 import 'package:Ludika/screens/exercice.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,13 +23,13 @@ class _RegionState extends State<Region> {
     } else if (widget.matiere == "grammaire") {
       return getQuizGram(widget.grade);
     } else if (widget.matiere == "syllabe") {
-      return getQuizConj(widget.grade);
+      return getQuizSyl(widget.grade);
     } else if (widget.matiere == "nombre") {
-      return getQuizConj(widget.grade);
+      return getQuizNomb(widget.grade);
     } else if (widget.matiere == "calcul") {
-      return getQuizConj(widget.grade);
+      return getQuizCalcul(widget.grade);
     } else {
-      return getQuizConj(widget.grade);
+      return getQuizHeure(widget.grade);
     }
   }
 
@@ -131,8 +135,6 @@ class _RegionState extends State<Region> {
                     grade: widget.grade,
                     matiere: widget.matiere,
                     quiz: getQuiz())));
-        /*Navigator.push(
-            context, new MaterialPageRoute(builder: (context) => Quiz1()));*/
       },
     );
   }

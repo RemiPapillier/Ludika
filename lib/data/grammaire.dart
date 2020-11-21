@@ -44,13 +44,13 @@ Quiz getQuizGramCp() {
       quiz.exercices.add(quiz1.exercices[list1[i]]);
       quiz.choices.add(quiz1.choices[list1[i]]);
       quiz.correctAnswers.add(quiz1.correctAnswers[list1[i]]);
-    } else if (c < 50) {
+    } else if (c >= 25 && c < 50) {
       quiz.questions.add(quiz2.questions[list2[i]]);
       quiz.images.add(quiz2.images[list2[i]]);
       quiz.exercices.add(quiz2.exercices[list2[i]]);
       quiz.choices.add(quiz2.choices[list2[i]]);
       quiz.correctAnswers.add(quiz2.correctAnswers[list2[i]]);
-    } else if (c < 75) {
+    } else if (c >= 50 && c < 75) {
       quiz.questions.add(quiz3.questions[list3[i]]);
       quiz.images.add(quiz3.images[list3[i]]);
       quiz.exercices.add(quiz3.exercices[list3[i]]);

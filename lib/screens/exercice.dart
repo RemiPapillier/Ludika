@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:Ludika/data/conjugaison.dart';
+import 'package:Ludika/screens/resultat.dart';
 import 'package:Ludika/widgets/menu.dart';
 import 'package:Ludika/widgets/retour.dart';
 import 'package:flutter/material.dart';
@@ -125,7 +125,11 @@ class _ExerciceState extends State<Exercice> {
   void updateQuestion() {
     setState(() {
       if (questionNumber == widget.quiz.questions.length - 1) {
-        Navigator.pushNamed(context, '/home');
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    Resultat(score: finalScore, grade: widget.grade)));
         debugPrint(finalScore.toString());
       } else if (questionNumber == widget.quiz.questions.length - 2) {
         suivantToResultat();
@@ -353,41 +357,3 @@ class _ExerciceState extends State<Exercice> {
         )));
   }
 }
-
-/*class Summary extends StatelessWidget {
-  final int score;
-  Summary({Key key, @required this.score}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return new WillPopScope(
-      onWillPop: () async => false,
-      child: Scaffold(
-        body: new Container(
-          child: new Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new Text(
-                "Final Score: $score",
-                style: new TextStyle(fontSize: 35.0),
-              ),
-              new Padding(padding: EdgeInsets.all(30.0)),
-              new MaterialButton(
-                color: Colors.red,
-                onPressed: () {
-                  questionNumber = 0;
-                  finalScore = 0;
-                  Navigator.pop(context);
-                },
-                child: new Text(
-                  "Reset Quiz",
-                  style: new TextStyle(fontSize: 20.0, color: Colors.white),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}*/

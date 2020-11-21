@@ -70,7 +70,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 ])),
             child: Stack(
               children: <Widget>[
-                //Positioned(top: 100, left: 50, child: star()),
                 generateStars(),
                 Positioned(
                     top: _divheight * 0.12,
