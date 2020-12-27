@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:Ludika/widgets/menu.dart';
 import 'dart:math' as math;
 
+import 'package:google_fonts/google_fonts.dart';
+
 class Resultat extends StatefulWidget {
   Resultat({this.score, this.grade});
   final int score;
@@ -23,6 +25,16 @@ class _ResultatState extends State<Resultat> {
         color: Colors.white,
         size: 8,
       );
+    }
+
+    String displayMessage() {
+      if (widget.score >= 8) {
+        return "Bravo! Tu as bien mérité ton badge";
+      } else if (widget.score < 8 && widget.score >= 5) {
+        return "Presque, il te faut au moins 8/10 pour obtenir un badge!";
+      } else {
+        return "Dommage, tu feras mieux la prochaine fois!";
+      }
     }
 
     Stack generateStars() {
@@ -58,17 +70,52 @@ class _ResultatState extends State<Resultat> {
             children: <Widget>[
               generateStars(),
               Align(
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      top: _divwidth * 0.2, left: 30, right: 30),
+                  child: Text(
+                    displayMessage(),
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.bellota(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 28,
+                        textStyle: TextStyle(color: Colors.white)),
+                  ),
+                ),
+              ),
+              Align(
                 alignment: Alignment.center,
-                child: Container(
-                  width: _divwidth * 0.6,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/images/soucoupe.png'),
-                          fit: BoxFit.scaleDown)),
-                  child: Center(
-                    child: Text(
-                      widget.score.toString() + " / 10",
-                      style: new TextStyle(fontSize: 35.0),
+                child: Padding(
+                  padding: EdgeInsets.only(top: _divwidth * 0.3),
+                  child: Container(
+                    width: _divwidth * 0.7,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(
+                                'assets/images/soucoupeResultat.png'),
+                            fit: BoxFit.scaleDown)),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: _divwidth * 0.5),
+                        child: Text(
+                          widget.score.toString() + " / 10",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.bellota(
+                              fontWeight: FontWeight.w900,
+                              fontSize: 42,
+                              textStyle: TextStyle(
+                                color: Colors.greenAccent[400],
+                                shadows: [
+                                  Shadow(
+                                    blurRadius: 5.0,
+                                    color: Colors.greenAccent[700],
+                                  ),
+                                ],
+                              )),
+                        ),
+                      ),
                     ),
                   ),
                 ),
