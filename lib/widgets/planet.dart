@@ -89,13 +89,13 @@ class _PlanetState extends State<Planet> {
     if (widget.grade == 1) {
       Navigator.pushNamed(context, '/cp');
     } else if (widget.grade == 2) {
-      Navigator.pushNamed(context, '/ce1');
+      Navigator.pushNamed(context, '/incoming');
     } else if (widget.grade == 3) {
-      Navigator.pushNamed(context, '/ce2');
+      Navigator.pushNamed(context, '/incoming');
     } else if (widget.grade == 4) {
-      Navigator.pushNamed(context, '/cm1');
+      Navigator.pushNamed(context, '/incoming');
     } else {
-      Navigator.pushNamed(context, '/cm2');
+      Navigator.pushNamed(context, '/incoming');
     }
   }
 

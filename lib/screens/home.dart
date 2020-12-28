@@ -58,7 +58,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     }
 
     return Scaffold(
-        //child: Text('Succeed ' + currentUser.uid),
         body: Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(

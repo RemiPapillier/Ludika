@@ -1,3 +1,4 @@
+import 'package:Ludika/screens/incoming.dart';
 import 'package:flutter/material.dart';
 import 'package:Ludika/services/authentication.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         '/ce2': (context) => Ce2(),
         '/cm1': (context) => Cm1(),
         '/cm2': (context) => Cm2(),
+        '/incoming': (context) => InComing(),
       },
     );
   }
