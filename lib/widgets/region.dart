@@ -22,7 +22,7 @@ class Region extends StatefulWidget {
 class _RegionState extends State<Region> {
   static AuthService _auth = AuthService();
   MyUser currentUser = _auth.getCurrentUser();
-  bool show;
+  bool show = false;
 
   Quiz getQuiz() {
     if (widget.matiere == "conjugaison") {
