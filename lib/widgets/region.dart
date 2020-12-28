@@ -4,7 +4,10 @@ import 'package:Ludika/data/grammaire.dart';
 import 'package:Ludika/data/heure.dart';
 import 'package:Ludika/data/nombre.dart';
 import 'package:Ludika/data/syllabe.dart';
+import 'package:Ludika/models/myUser.dart';
 import 'package:Ludika/screens/exercice.dart';
+import 'package:Ludika/services/authentication.dart';
+import 'package:Ludika/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -17,6 +20,10 @@ class Region extends StatefulWidget {
 }
 
 class _RegionState extends State<Region> {
+  static AuthService _auth = AuthService();
+  MyUser currentUser = _auth.getCurrentUser();
+  bool show;
+
   Quiz getQuiz() {
     if (widget.matiere == "conjugaison") {
       return getQuizConj(widget.grade);
@@ -103,6 +110,32 @@ class _RegionState extends State<Region> {
   @override
   Widget build(BuildContext context) {
     var _divwidth = MediaQuery.of(context).size.width;
+
+    String badgeName() {
+      if (widget.grade == 1) {
+        return "cp" + widget.matiere;
+      } else if (widget.grade == 2) {
+        return "ce1" + widget.matiere;
+      } else if (widget.grade == 3) {
+        return "ce2" + widget.matiere;
+      } else if (widget.grade == 4) {
+        return "cm1" + widget.matiere;
+      } else {
+        return "cm2" + widget.matiere;
+      }
+    }
+
+    getBadgeStatus(String name) async {
+      dynamic resultant = DatabaseService(uid: currentUser.uid).getUserBadge();
+      resultant.then((querySnapshot) {
+        setState(() {
+          show = querySnapshot.data()[name];
+        });
+      });
+    }
+
+    getBadgeStatus(badgeName());
+
     return GestureDetector(
       child: Stack(
         children: [
@@ -121,7 +154,25 @@ class _RegionState extends State<Region> {
               decoration: BoxDecoration(
                   image: DecorationImage(
                       image: displayHexBackground(), fit: BoxFit.cover)),
-              child: Center(child: displayMatiere()),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    displayMatiere(),
+                    Visibility(
+                      visible: show,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 15),
+                        child: Container(
+                          height: _divwidth * 0.1,
+                          width: _divwidth * 0.1,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage('assets/images/badge.png'),
+                                  fit: BoxFit.contain)),
+                        ),
+                      ),
+                    )
+                  ]),
             ),
             clipper: HexagonClipper(),
           ),

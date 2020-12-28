@@ -128,8 +128,11 @@ class _ExerciceState extends State<Exercice> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    Resultat(score: finalScore, grade: widget.grade)));
+                builder: (context) => Resultat(
+                      score: finalScore,
+                      grade: widget.grade,
+                      matiere: widget.matiere,
+                    )));
         debugPrint(finalScore.toString());
       } else if (questionNumber == widget.quiz.questions.length - 2) {
         suivantToResultat();

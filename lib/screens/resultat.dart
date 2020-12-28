@@ -1,3 +1,6 @@
+import 'package:Ludika/models/myUser.dart';
+import 'package:Ludika/services/authentication.dart';
+import 'package:Ludika/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:Ludika/widgets/menu.dart';
 import 'dart:math' as math;
@@ -5,15 +8,18 @@ import 'dart:math' as math;
 import 'package:google_fonts/google_fonts.dart';
 
 class Resultat extends StatefulWidget {
-  Resultat({this.score, this.grade});
+  Resultat({this.score, this.grade, this.matiere});
   final int score;
   final int grade;
-
+  final String matiere;
   @override
   _ResultatState createState() => _ResultatState();
 }
 
 class _ResultatState extends State<Resultat> {
+  static AuthService _auth = AuthService();
+  MyUser currentUser = _auth.getCurrentUser();
+
   @override
   Widget build(BuildContext context) {
     var _divheight = MediaQuery.of(context).size.height;
@@ -27,8 +33,23 @@ class _ResultatState extends State<Resultat> {
       );
     }
 
+    String badgeName() {
+      if (widget.grade == 1) {
+        return "cp" + widget.matiere;
+      } else if (widget.grade == 2) {
+        return "ce1" + widget.matiere;
+      } else if (widget.grade == 3) {
+        return "ce2" + widget.matiere;
+      } else if (widget.grade == 4) {
+        return "cm1" + widget.matiere;
+      } else {
+        return "cm2" + widget.matiere;
+      }
+    }
+
     String displayMessage() {
       if (widget.score >= 8) {
+        DatabaseService(uid: currentUser.uid).giveUserBadge(badgeName());
         return "Bravo! Tu as bien mérité ton badge";
       } else if (widget.score < 8 && widget.score >= 5) {
         return "Presque, il te faut au moins 8/10 pour obtenir un badge!";

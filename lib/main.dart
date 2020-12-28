@@ -14,12 +14,17 @@ void main() async {
   await Firebase.initializeApp();
 
   final AuthService _auth = AuthService();
-  dynamic result = await _auth.signInAnon();
+  dynamic resultUser = _auth.getCurrentUser();
 
-  if (result != null) {
+  if (resultUser != null) {
     runApp(MyApp());
   } else {
-    runApp(NoConnection());
+    dynamic result = await _auth.signInAnon();
+    if (result != null) {
+      runApp(MyApp());
+    } else {
+      runApp(NoConnection());
+    }
   }
 }
 
