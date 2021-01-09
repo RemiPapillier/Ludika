@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:Ludika/screens/exercice.dart';
 
+//Get appropriate Quizz for a specific grade
 Quiz getQuizCalcul(int grade) {
   if (grade == 1) {
     return getQuizCalculCp();
@@ -15,6 +16,7 @@ Quiz getQuizCalcul(int grade) {
   }
 }
 
+//Return a calcul quiz for cp with random and shuffled calcul exercices
 Quiz getQuizCalculCp() {
   var quiz = Quiz();
   var quiz1 = QuizCalculAddiCP();

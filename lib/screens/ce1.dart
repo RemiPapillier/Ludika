@@ -3,12 +3,14 @@ import 'package:Ludika/widgets/retour.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+//Stateful class
 class Ce1 extends StatefulWidget {
   @override
   _Ce1State createState() => _Ce1State();
 }
 
 class _Ce1State extends State<Ce1> {
+  //Return a custom TextStyle
   TextStyle myStyle() {
     return TextStyle(
       color: Colors.white,
@@ -27,6 +29,7 @@ class _Ce1State extends State<Ce1> {
     var _divwidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+        //Set the background color
         body: Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -37,6 +40,7 @@ class _Ce1State extends State<Ce1> {
                   Color(0xFFF2FF1D),
                 ])),
             child: Stack(children: <Widget>[
+              //Position the grade, return widget and differents hexagonal matiere on the page
               Positioned(
                   top: _divwidth * 0.28,
                   left: _divwidth * 0.62,

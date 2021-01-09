@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math' as math;
 
+//Stateless class Retour
 class Retour extends StatelessWidget {
+  //Return a custom TextStyle
   TextStyle myStyle() {
     return TextStyle(
       color: Colors.white,
@@ -18,7 +20,9 @@ class Retour extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //define _divwidth as the maximum width of smartphone
     var _divwidth = MediaQuery.of(context).size.width;
+    //return a clickable row containing Retour text and rocket image
     return InkWell(
       child: Row(
         children: [
@@ -45,6 +49,7 @@ class Retour extends StatelessWidget {
           )
         ],
       ),
+      //Redirect to previous page on tap
       onTap: () {
         Navigator.pop(context);
       },

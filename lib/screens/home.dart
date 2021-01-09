@@ -12,6 +12,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   AnimationController _controller;
 
+  //get the current user
   static AuthService _auth = AuthService();
   MyUser currentUser = _auth.getCurrentUser();
 
@@ -29,9 +30,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    //set max height and width of screen
     var _divheight = MediaQuery.of(context).size.height;
     var _divwidth = MediaQuery.of(context).size.width;
 
+    //Return a little star icon for background
     Icon star() {
       return Icon(
         Icons.star,
@@ -40,6 +43,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       );
     }
 
+    //Return a stack generating random stars for the spatial background
     Stack generateStars() {
       var rng = math.Random();
       List<List<int>> coord = [];
@@ -58,6 +62,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     }
 
     return Scaffold(
+        //Background container
         body: Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -70,6 +75,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             child: Stack(
               children: <Widget>[
                 generateStars(),
+                //Positione and display planets
                 Positioned(
                     top: _divheight * 0.12,
                     left: _divwidth * 0.6,
@@ -90,6 +96,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     top: _divheight * 0.55,
                     left: _divwidth * 0.65,
                     child: Planet(grade: 1)),
+                //Display Ludo in the soucoup
                 Align(
                     alignment: Alignment.bottomLeft,
                     child: Padding(

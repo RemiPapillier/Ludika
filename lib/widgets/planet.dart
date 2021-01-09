@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+//Statefull class with grade attribut and construsctor to get grade
 class Planet extends StatefulWidget {
   Planet({this.grade});
   final int grade; //CP=1 CE1=2 CE2=3 CM1=4 CM2=5
@@ -8,7 +9,9 @@ class Planet extends StatefulWidget {
   _PlanetState createState() => _PlanetState();
 }
 
+//Widget class returning a clickable planet that redirect to the appropriate grade
 class _PlanetState extends State<Planet> {
+  //Return a custom TextStyle
   TextStyle myStyle() {
     return TextStyle(
       color: Colors.white,
@@ -22,6 +25,7 @@ class _PlanetState extends State<Planet> {
     );
   }
 
+  //Return the text to display taking in function of grade attribute
   Text displayGrade() {
     if (widget.grade == 1) {
       return Text(
@@ -56,6 +60,7 @@ class _PlanetState extends State<Planet> {
     }
   }
 
+  //Return the appropriate image in function of grade attribute
   AssetImage displayPlanet() {
     if (widget.grade == 1) {
       return AssetImage('assets/images/planeteCP.png');
@@ -70,6 +75,7 @@ class _PlanetState extends State<Planet> {
     }
   }
 
+  //Return a double corresponding to the size of each planet
   double setSize(BuildContext context) {
     var _divwidth = MediaQuery.of(context).size.width;
     if (widget.grade == 1) {
@@ -85,6 +91,7 @@ class _PlanetState extends State<Planet> {
     }
   }
 
+  //Redirect to the appropriate page in function of grade attribute
   void pushContext() {
     if (widget.grade == 1) {
       Navigator.pushNamed(context, '/cp');
@@ -101,6 +108,7 @@ class _PlanetState extends State<Planet> {
 
   @override
   Widget build(BuildContext context) {
+    //Clickable Stack containing the planet image, the text grade and redirecting to the appropriate grade
     return Stack(children: <Widget>[
       GestureDetector(
         child: Container(

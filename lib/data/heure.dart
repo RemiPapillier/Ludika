@@ -1,5 +1,6 @@
 import 'package:Ludika/screens/exercice.dart';
 
+//Get appropriate Quizz for a specific grade
 Quiz getQuizHeure(int grade) {
   if (grade == 1) {
     return getQuizHeureCp();
@@ -14,6 +15,7 @@ Quiz getQuizHeure(int grade) {
   }
 }
 
+//Return an hour quiz for cp with random and shuffled hour exercices
 Quiz getQuizHeureCp() {
   var quiz = Quiz();
   var quiz1 = QuizHeureHorlogeCP();

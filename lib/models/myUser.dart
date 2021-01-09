@@ -1,7 +1,7 @@
-class MyUser{
-
+class MyUser {
+  //Attribute uid
   final String uid;
-  
-  MyUser({this.uid});
 
+  //Constructor getting uid
+  MyUser({this.uid});
 }

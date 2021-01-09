@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:Ludika/screens/exercice.dart';
 
+//Get appropriate Quizz for a specific grade
 Quiz getQuizSyl(int grade) {
   if (grade == 1) {
     return getQuizSylCp();
@@ -15,6 +16,7 @@ Quiz getQuizSyl(int grade) {
   }
 }
 
+//Return a syllabe quiz for cp with random and shuffled syllabe exercices
 Quiz getQuizSylCp() {
   var quiz = Quiz();
   var quiz1 = QuizSylRemplirCP();

@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:Ludika/screens/exercice.dart';
 
+//Get appropriate Quizz for a specific grade
 Quiz getQuizGram(int grade) {
   if (grade == 1) {
     return getQuizGramCp();
@@ -15,6 +16,7 @@ Quiz getQuizGram(int grade) {
   }
 }
 
+//Return a grammar quiz for cp with random and shuffled grammar exercices
 Quiz getQuizGramCp() {
   var quiz = Quiz();
   var quiz1 = QuizGramDetCP();

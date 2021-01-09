@@ -4,12 +4,15 @@ import 'dart:math' as math;
 
 import 'package:google_fonts/google_fonts.dart';
 
+//Stateless class
 class InComing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //set max height and width of screen
     var _divheight = MediaQuery.of(context).size.height;
     var _divwidth = MediaQuery.of(context).size.width;
 
+    //Return a little star icon for background
     Icon star() {
       return Icon(
         Icons.star,
@@ -18,6 +21,7 @@ class InComing extends StatelessWidget {
       );
     }
 
+    //Return a stack generating random stars for the spatial background
     Stack generateStars() {
       var rng = math.Random();
       List<List<int>> coord = [];
@@ -35,6 +39,7 @@ class InComing extends StatelessWidget {
       }));
     }
 
+    //return basic page with spatial background and message that inform the page isnt available yet
     return Scaffold(
       body: Container(
           decoration: BoxDecoration(

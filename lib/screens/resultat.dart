@@ -7,6 +7,7 @@ import 'dart:math' as math;
 
 import 'package:google_fonts/google_fonts.dart';
 
+//Stateful class with score, grade, matiere attribute and constructor to initialize attributes
 class Resultat extends StatefulWidget {
   Resultat({this.score, this.grade, this.matiere});
   final int score;
@@ -17,14 +18,17 @@ class Resultat extends StatefulWidget {
 }
 
 class _ResultatState extends State<Resultat> {
+  //Get the current user
   static AuthService _auth = AuthService();
   MyUser currentUser = _auth.getCurrentUser();
 
   @override
   Widget build(BuildContext context) {
+    //set max height and width of screen
     var _divheight = MediaQuery.of(context).size.height;
     var _divwidth = MediaQuery.of(context).size.width;
 
+    //Return a little star icon for background
     Icon star() {
       return Icon(
         Icons.star,
@@ -33,6 +37,7 @@ class _ResultatState extends State<Resultat> {
       );
     }
 
+    //Return the name of badge in database
     String badgeName() {
       if (widget.grade == 1) {
         return "cp" + widget.matiere;
@@ -47,6 +52,7 @@ class _ResultatState extends State<Resultat> {
       }
     }
 
+    //Return a string depending of the score obtained
     String displayMessage() {
       if (widget.score >= 8) {
         DatabaseService(uid: currentUser.uid).giveUserBadge(badgeName());
@@ -58,6 +64,7 @@ class _ResultatState extends State<Resultat> {
       }
     }
 
+    //Return a stack generating random stars for the spatial background
     Stack generateStars() {
       var rng = math.Random();
       List<List<int>> coord = [];
@@ -75,9 +82,11 @@ class _ResultatState extends State<Resultat> {
       }));
     }
 
+    //return the result page
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
+        //background color container
         body: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -88,6 +97,7 @@ class _ResultatState extends State<Resultat> {
                 Color(0xFF04042C)
               ])),
           child: Stack(
+            //generate a stack containing the stars, the information message and the result
             children: <Widget>[
               generateStars(),
               Align(
@@ -141,6 +151,7 @@ class _ResultatState extends State<Resultat> {
                   ),
                 ),
               ),
+              //widget to redirect to menu
               Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(

@@ -11,6 +11,7 @@ import 'package:Ludika/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+//Statefull class with grade and matiere attribute and construsctor associated
 class Region extends StatefulWidget {
   Region({this.grade, this.matiere});
   final int grade;
@@ -20,10 +21,13 @@ class Region extends StatefulWidget {
 }
 
 class _RegionState extends State<Region> {
+  //Get the current User
   static AuthService _auth = AuthService();
   MyUser currentUser = _auth.getCurrentUser();
+  //Set variable show to false
   bool show = false;
 
+  //Return the appropriate quiz for the given grade and matiere attribute
   Quiz getQuiz() {
     if (widget.matiere == "conjugaison") {
       return getQuizConj(widget.grade);
@@ -40,6 +44,7 @@ class _RegionState extends State<Region> {
     }
   }
 
+  //Return a custom TextStyle
   TextStyle myStyle() {
     return TextStyle(
       color: Colors.white,
@@ -53,6 +58,7 @@ class _RegionState extends State<Region> {
     );
   }
 
+  //Return the text to display taking in function of matiere attribute
   Text displayMatiere() {
     if (widget.matiere == "conjugaison") {
       return Text('Conjugaison',
@@ -91,6 +97,7 @@ class _RegionState extends State<Region> {
     }
   }
 
+  //Return image to use in the hexagon region in function of matiere attribute
   AssetImage displayHexBackground() {
     if (widget.matiere == "conjugaison") {
       return AssetImage('assets/images/hexPalmier.png');
@@ -109,8 +116,10 @@ class _RegionState extends State<Region> {
 
   @override
   Widget build(BuildContext context) {
+    //define _divwidth as the maximum width of smartphone
     var _divwidth = MediaQuery.of(context).size.width;
 
+    //function that returns the text corresponding in the database
     String badgeName() {
       if (widget.grade == 1) {
         return "cp" + widget.matiere;
@@ -125,6 +134,7 @@ class _RegionState extends State<Region> {
       }
     }
 
+    //function that returns if the badhe "name" is acquired or not and modify the status to visible if it is acquired
     getBadgeStatus(String name) async {
       dynamic resultant = DatabaseService(uid: currentUser.uid).getUserBadge();
       resultant.then((querySnapshot) {
@@ -134,8 +144,10 @@ class _RegionState extends State<Region> {
       });
     }
 
+    //Call the function that return if the badgeName is acquired or not and modify the visibility state
     getBadgeStatus(badgeName());
 
+    //return a clickable stack widget with a custom hexagon form filled with appropriate image, text and display badge if it is acquired by user
     return GestureDetector(
       child: Stack(
         children: [
@@ -178,6 +190,7 @@ class _RegionState extends State<Region> {
           ),
         ],
       ),
+      //On tap, redirect to exercice page corresponding to the grade and matiere and also give the appropriate quiz to display
       onTap: () {
         Navigator.push(
             context,
@@ -191,6 +204,7 @@ class _RegionState extends State<Region> {
   }
 }
 
+//Class that create a specific container form (hexagon)
 class HexagonClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
@@ -211,6 +225,7 @@ class HexagonClipper extends CustomClipper<Path> {
   bool shouldReclip(oldClipper) => false;
 }
 
+//Class that create an hexagon a bit larger that the last one in order to create a border
 class HexagonClipperBack extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {

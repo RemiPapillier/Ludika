@@ -11,16 +11,20 @@ import 'package:Ludika/screens/cm2.dart';
 import 'package:flutter/services.dart';
 
 void main() async {
+  //Synchronize with Firebase
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
+  //Get current user
   final AuthService _auth = AuthService();
   dynamic resultUser = _auth.getCurrentUser();
 
+  //If user exists run MyApp else create an account anonymously
   if (resultUser != null) {
     runApp(MyApp());
   } else {
     dynamic result = await _auth.signInAnon();
+    //If authentication worked return MyApp else, run Failed page
     if (result != null) {
       runApp(MyApp());
     } else {
@@ -29,12 +33,15 @@ void main() async {
   }
 }
 
+//Entry class
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //Set orientation to portrait
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
+    //return widget Materialapp with title, homepage and routes initialized
     return MaterialApp(
       title: 'Ludika',
       home: Home(),
@@ -51,6 +58,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+//Failed class
 class NoConnection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
